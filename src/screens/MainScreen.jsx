@@ -1,24 +1,14 @@
 import React from 'react'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
-import {View, Text, StyleSheet} from 'react-native'
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
-import {Card} from "react-native-elements";
-import {THEME} from "../theme";
+import {CardRashodi} from "../components/CardRashodi";
 
-export const MainScreen = () => {
+export const MainScreen = ({navigation}) => {
 	return (
-		<View>
-			<Card title="Расходы" titleStyle={styles.title}>
-				<Text style={{marginBottom: 10}}>
-					The idea with React Native Elements is more about component structure than actual design.
-				</Text>
-			</Card>
-			<Card title="Доходы" titleStyle={styles.title}>
-				<Text style={{marginBottom: 10}}>
-					The idea with React Native Elements is more about component structure than actual design.
-				</Text>
-			</Card>
-		</View>
+		<>
+			<CardRashodi titleCard="Расходы" navigation={navigation} goToScreen="CreateConsumption"/>
+			<CardRashodi titleCard="Доходы" navigation={navigation} goToScreen="CreateIncome"/>
+		</>
 	)
 }
 
@@ -30,11 +20,3 @@ MainScreen.options = ({navigation}) => ({
 		</HeaderButtons>
 	}
 })
-
-const styles = StyleSheet.create({
-	title: {
-		backgroundColor: THEME.MAIN_COLOR,
-		padding: 10,
-		color: '#fff'
-	}
-});

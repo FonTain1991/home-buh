@@ -10,6 +10,8 @@ import {ConsumptionScreen} from "../screens/ConsumptionScreen";
 import {IncomeScreen} from "../screens/IncomeScreen";
 import {THEME} from "../theme";
 import {AboutScreen} from "../screens/AboutScreen";
+import {CreateIncomeScreen} from "../screens/CreateIncomeScreen";
+import {CreateConsumptionScreen} from "../screens/CreateConsumptionScreen";
 
 
 const defaultScreenOptions = {
@@ -29,6 +31,8 @@ const ExpenseJournalNavigator = () => {
 		<ExpenseJournalStack.Screen name="Consumption" component={ConsumptionScreen}
 		                            options={ConsumptionScreen.options}/>
 		<ExpenseJournalStack.Screen name="Income" component={IncomeScreen} options={IncomeScreen.options}/>
+		<ExpenseJournalStack.Screen name="CreateIncome" component={CreateIncomeScreen} options={CreateIncomeScreen.options}/>
+		<ExpenseJournalStack.Screen name="CreateConsumption" component={CreateConsumptionScreen} options={CreateConsumptionScreen.options}/>
 	</ExpenseJournalStack.Navigator>
 }
 
@@ -62,6 +66,13 @@ const AboutNavigator = () => {
 }
 
 
+/*const CreateIncomeNavigation= createStackNavigator();
+const CreateIncomeScreenNavigator = () => {
+	return <CreateIncomeNavigation.Navigator initialRouteName="CreateIncome" screenOptions={defaultScreenOptions}>
+		<CreateIncomeNavigation.Screen name="CreateIncome" component={CreateIncomeScreen} options={CreateIncomeScreen.options}/>
+	</CreateIncomeNavigation.Navigator>
+}*/
+
 const BottomNavigatorTab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {
 	return (
@@ -84,7 +95,7 @@ const BottomNavigator = () => {
 				name="Income"
 				component={IncomeNavigator}
 				options={{
-					tabBarLabel: "Доходы",
+					tabBarLabel: "Все доходы",
 					tabBarIcon: ({color}) => (
 						<FontAwesome name="money" color={color} size={25}/>
 					)
@@ -94,7 +105,7 @@ const BottomNavigator = () => {
 				name="Consumption"
 				component={ConsumptionNavigator}
 				options={{
-					tabBarLabel: "Расходы",
+					tabBarLabel: "Все расходы",
 					tabBarIcon: ({color}) => (
 						<MaterialIcons name="money-off" color={color} size={25}/>
 					)

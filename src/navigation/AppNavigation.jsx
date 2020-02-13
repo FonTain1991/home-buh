@@ -65,14 +65,6 @@ const AboutNavigator = () => {
 	</AboutStack.Navigator>
 }
 
-
-/*const CreateIncomeNavigation= createStackNavigator();
-const CreateIncomeScreenNavigator = () => {
-	return <CreateIncomeNavigation.Navigator initialRouteName="CreateIncome" screenOptions={defaultScreenOptions}>
-		<CreateIncomeNavigation.Screen name="CreateIncome" component={CreateIncomeScreen} options={CreateIncomeScreen.options}/>
-	</CreateIncomeNavigation.Navigator>
-}*/
-
 const BottomNavigatorTab = createMaterialBottomTabNavigator();
 const BottomNavigator = () => {
 	return (

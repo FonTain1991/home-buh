@@ -7,15 +7,18 @@ import {loadIncome} from "../store/actions/income";
 import {ActivityIndicator, ScrollView, View, StyleSheet, Text} from "react-native";
 import moment from "moment";
 import {THEME} from "../theme";
+import {loadСonsumption} from "../store/actions/consumption";
 
 export const MainScreen = ({navigation}) => {
 	const dispatch = useDispatch();
 
 	/* Загрузка доходов из базы */
 	useEffect(() => {
-		dispatch(loadIncome())
-	}, [dispatch])
+		dispatch(loadIncome());
+		dispatch(loadСonsumption());
+	}, [dispatch]);
 
+	const consumption = useSelector(state => state.consumption.consumption);
 	const income = useSelector(state => state.income.income);
 
 	const loading = useSelector(state => state.income.loading);
@@ -25,13 +28,30 @@ export const MainScreen = ({navigation}) => {
 			<ActivityIndicator color={THEME.MAIN_COLOR} size='large'/>
 		</View>
 	}
+
+	/* Вычисление расходов за неделю */
+	let dayСonsumption = 0;
+	for (let item of consumption.filter(item => selectDate('day', item.date))) {
+		dayСonsumption += item.summa * 1
+	}
+
+	/* Вычисление расходов за неделю */
+	let weekСonsumption = 0;
+	for (let item of consumption.filter(item => selectDate('week', item.date))) {
+		weekСonsumption += item.summa * 1
+	}
+
+	/* Вычисление расходов за месяц */
+	let monthСonsumption = 0;
+	for (let item of consumption.filter(item => selectDate('month', item.date))) {
+		monthСonsumption += item.summa * 1
+	}
+
 	/* Вычисление доходов за неделю */
 	let weekIncome = 0;
 	for (let item of income.filter(item => selectDate('week', item.date))) {
 		weekIncome += item.summa * 1
 	}
-	console.log(moment().startOf('week').format('YYYY-MM-DD'))
-	console.log(moment().endOf('week').format('YYYY-MM-DD'))
 
 	/* Вычисление доходов за месяц */
 	let monthIncome = 0;
@@ -41,7 +61,7 @@ export const MainScreen = ({navigation}) => {
 
 	return (
 		<ScrollView>
-			<CardRashodi titleCard="Расходы" day={12}  week={1} month={2} navigation={navigation} goToScreen="CreateConsumption"/>
+			<CardRashodi titleCard="Расходы" day={dayСonsumption}  week={weekСonsumption} month={monthСonsumption} navigation={navigation} goToScreen="CreateConsumption"/>
 			<CardRashodi titleCard="Доходы" day={null} week={weekIncome} month={monthIncome} navigation={navigation}
 			             goToScreen="CreateIncome"/>
 		</ScrollView>

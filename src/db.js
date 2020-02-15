@@ -13,15 +13,23 @@ export class DB {
 					resolve,
 					(_, error) => reject(error)
 				)
+			}),
+			db.transaction(tx => {
+				tx.executeSql(
+					'CREATE TABLE IF NOT EXISTS consumption (id INTEGER PRIMARY KEY NOT NULL,comment TEXT, rubric TEXT, date TEXT, summa INT)',
+					[],
+					resolve,
+					(_, error) => reject(error)
+				)
 			})
 		})
 	}
 
-	static getIncome(){
+	static get(table){
 		return new Promise((resolve, reject) => {
 			db.transaction(tx => {
 				tx.executeSql(
-					'SELECT * FROM income ORDER BY date ASC',
+					`SELECT * FROM ${table} ORDER BY date ASC`,
 					[],
 					(_, result) => resolve(result.rows._array),
 					(_, error) => reject(error)
@@ -30,11 +38,11 @@ export class DB {
 		})
 	}
 
-	static createIncome({comment, date, summa, rubric}){
+	static create(table, {comment, date, summa, rubric}){
 		return new Promise(((resolve, reject) => {
 			db.transaction(tx => {
 				tx.executeSql(
-					`INSERT INTO income (comment, date, summa, rubric) VALUES (?, ?, ?, ?)`,
+					`INSERT INTO ${table} (comment, date, summa, rubric) VALUES (?, ?, ?, ?)`,
 					[comment, date, summa, rubric],
 					(_, result) => resolve(result.insertId),
 					(_, error) => reject(error)

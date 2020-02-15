@@ -1,2 +1,4 @@
 export const ADD_INCOME = "ADD_INCOME";
 export const LOAD_INCOME = "LOAD_INCOME";
+export const LOAD_CONSUMPTION = "LOAD_CONSUMPTION";
+export const ADD_CONSUMPTION = "ADD_CONSUMPTION";

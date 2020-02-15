@@ -3,7 +3,7 @@ import {DB} from "../../db";
 
 export const addIncome = income => async dispatch => {
 	const payload = {...income};
-	const id = await DB.createIncome(payload);
+	const id = await DB.create('income', payload);
 	payload.id = id;
 	dispatch({
 		type: ADD_INCOME,
@@ -13,7 +13,7 @@ export const addIncome = income => async dispatch => {
 
 export const loadIncome = () => {
 	return async dispatch => {
-		const income = await DB.getIncome();
+		const income = await DB.get('income');
 
 		dispatch({
 			type: LOAD_INCOME,

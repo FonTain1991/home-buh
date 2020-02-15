@@ -37,7 +37,6 @@ export const CreateIncomeScreen = ({navigation}) => {
 	const handleConfirm = newDate => {
 		setIsVisible(false);
 		setDate(moment(newDate).format('YYYY-MM-DD'));
-
 	};
 
 	return (

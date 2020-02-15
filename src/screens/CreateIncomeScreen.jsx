@@ -1,26 +1,44 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
-import {Button, Keyboard, Picker, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from 'react-native'
-import DatePicker from 'react-native-datepicker'
-import moment from 'moment'
+import {Button, Keyboard, Picker, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {useDispatch} from 'react-redux';
 
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
 import {THEME} from "../theme";
 import {Card} from "react-native-elements";
+import {addIncome} from "../store/actions/income";
+import moment from "moment";
 
-export const CreateIncomeScreen = () => {
-	const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+export const CreateIncomeScreen = ({navigation}) => {
+	const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
 	const [isVisible, setIsVisible] = useState(false);
-	const [rubric, setRubric] = useState('');
+	const [rubric, setRubric] = useState('Java');
 	const [summa, setSumma] = useState('');
 	const [comment, setComment] = useState('');
+	const dispatch = useDispatch();
 
 	const saveHandler = () => {
 		const dohod = {
 			date, rubric, summa, comment
-		}
-		console.log(dohod)
+		};
+		dispatch(addIncome(dohod));
+		navigation.navigate('Main')
 	}
+
+	const showDatePicker = () => {
+		setIsVisible(true)
+	};
+
+	const hideDatePicker = () => {
+		setIsVisible(false)
+	};
+
+	const handleConfirm = newDate => {
+		setIsVisible(false);
+		setDate(moment(newDate).format('YYYY-MM-DD'));
+
+	};
 
 	return (
 		<TouchableWithoutFeedback onPress={() => {
@@ -28,30 +46,12 @@ export const CreateIncomeScreen = () => {
 		}}>
 			<Card containerStyle={{height: '95%'}}>
 				<Text>День</Text>
-				<DatePicker
-					style={{width: '100%'}}
-					date={date}
+				<Button title={date.toLocaleString()} onPress={showDatePicker} />
+				<DateTimePickerModal
+					isVisible={isVisible}
 					mode="date"
-					placeholder="Выберите дату"
-					format="YYYY-MM-DD"
-					minDate="2020-01-01"
-					maxDate="2100-01-01"
-					confirmBtnText="Confirm"
-					cancelBtnText="Cancel"
-					customStyles={{
-						dateIcon: {
-							position: 'absolute',
-							left: 0,
-							top: 4,
-							marginLeft: 0
-						},
-						dateInput: {
-							marginLeft: 36
-						}
-					}}
-					onDateChange={(date) => {
-						setDate(date)
-					}}
+					onConfirm={handleConfirm}
+					onCancel={hideDatePicker}
 				/>
 				<Text style={{marginTop: 15}}>Категория</Text>
 				<Picker
@@ -90,10 +90,11 @@ export const CreateIncomeScreen = () => {
 					style={{
 						marginTop: 15,
 						borderBottomWidth: 1,
-						padding: 10
+						padding: 10,
+						marginBottom: 10
 					}}
 				/>
-				<Button title='Сохранить' onPress={saveHandler}/>
+				<Button disabled={!summa} title='Сохранить' onPress={saveHandler}/>
 			</Card>
 		</TouchableWithoutFeedback>
 	)
@@ -101,11 +102,6 @@ export const CreateIncomeScreen = () => {
 
 CreateIncomeScreen.options = ({navigation}) => ({
 	headerTitle: 'Добавление дохода',
-	headerRight: () => {
-		return <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-			<Item title='Назад' iconName='md-arrow-back' onPress={() => navigation.goBack()}/>
-		</HeaderButtons>
-	},
 	headerLeft: () => {
 		return <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
 			<Item title='Назад' iconName='md-arrow-back' onPress={() => navigation.goBack()}/>

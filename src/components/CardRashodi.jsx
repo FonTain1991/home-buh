@@ -4,7 +4,7 @@ import {Button, Card} from "react-native-elements";
 import {FontAwesome} from "@expo/vector-icons";
 import {THEME} from "../theme";
 
-export const CardRashodi = ({titleCard, navigation, goToScreen}) => {
+export const CardRashodi = ({titleCard, navigation, goToScreen, day, week, month}) => {
 	const goTo = () => {
 		navigation.navigate(goToScreen)
 	};
@@ -13,19 +13,23 @@ export const CardRashodi = ({titleCard, navigation, goToScreen}) => {
 		<Card title={titleCard}>
 			<View style={styles.cardWrapper}>
 				<View style={styles.cardView}>
-					<View style={styles.cardViewRow}>
-						<Text>День</Text>
-						<Text style={styles.summa}>123 BYN</Text>
-					</View>
-					<View style={styles.devider}></View>
+					{day &&
+					<>
+						<View style={styles.cardViewRow}>
+							<Text>День</Text>
+							<Text style={styles.summa}>{day} BYN</Text>
+						</View>
+						<View style={styles.devider}></View>
+					</>
+					}
 					<View style={styles.cardViewRow}>
 						<Text>Неделя</Text>
-						<Text style={styles.summa}>456 BYN</Text>
+						<Text style={styles.summa}>{week} BYN</Text>
 					</View>
 					<View style={styles.devider}></View>
 					<View style={styles.cardViewRow}>
 						<Text>Месяц</Text>
-						<Text style={styles.summa}>789 BYN</Text>
+						<Text style={styles.summa}>{month} BYN</Text>
 					</View>
 				</View>
 				<View style={{marginLeft: 30}}>

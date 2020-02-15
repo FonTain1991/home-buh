@@ -2,11 +2,15 @@ import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import {AppHeaderIcon} from "../components/AppHeaderIcon";
-import {MainScreen} from "./MainScreen";
+import {useSelector} from "react-redux";
+
 
 export const IncomeScreen = () => {
+
+	const income = useSelector(state => console.log(state.income))
+
 	return <View style={styles.wrapper}>
-		<Text>IncomeScreen</Text>
+		<Text>{IncomeScreen}</Text>
 	</View>
 };
 

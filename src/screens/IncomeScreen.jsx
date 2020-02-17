@@ -46,6 +46,7 @@ export const IncomeScreen = () => {
 		return date === incomeDate
 	};
 	const income = useSelector(state => state.income.income.filter(item => filterDate(rubric, item.date)));
+	const allSumma = income.reduce((a, b) => a*1 + b.summa, '');
 
 	return <ScrollView>
 		<View style={styles.wrapper}>
@@ -56,8 +57,7 @@ export const IncomeScreen = () => {
 					selectedValue={rubric}
 					onValueChange={(itemValue, itemIndex) =>
 						setRubric(itemValue)
-					}
-				>
+					}>
 					<Picker.Item label="Год" value="year"/>
 					<Picker.Item label="Месяц" value="month"/>
 					<Picker.Item label="Неделю" value="week"/>
@@ -66,7 +66,7 @@ export const IncomeScreen = () => {
 			</View>
 			<View style={styles.list}>
 				<Text>Всего</Text>
-				<Text> BYN</Text>
+				<Text>{allSumma} BYN</Text>
 			</View>
 			{
 				income.map(item => {

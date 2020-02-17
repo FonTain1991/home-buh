@@ -11,13 +11,11 @@ export const addСonsumption = consumption => async dispatch => {
 	})
 };
 
-export const loadСonsumption = () => {
-	return async dispatch => {
-		const consumption = await DB.get('consumption');
+export const loadСonsumption = () => async dispatch => {
+	const consumption = await DB.get('consumption');
 
-		dispatch({
-			type: LOAD_CONSUMPTION,
-			payload: consumption
-		})
-	}
+	dispatch({
+		type: LOAD_CONSUMPTION,
+		payload: consumption
+	})
 };

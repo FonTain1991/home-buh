@@ -13,7 +13,7 @@ export const CardRashodi = ({titleCard, navigation, goToScreen, day, week, month
 		<Card title={titleCard}>
 			<View style={styles.cardWrapper}>
 				<View style={styles.cardView}>
-					{day &&
+					{day !== null &&
 					<>
 						<View style={styles.cardViewRow}>
 							<Text>День</Text>

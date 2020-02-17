@@ -8,7 +8,7 @@ export class DB {
 		return new Promise((resolve, reject) => {
 			db.transaction(tx => {
 				tx.executeSql(
-					'CREATE TABLE IF NOT EXISTS income(id INTEGER PRIMARY KEY NOT NULL,comment TEXT, rubric TEXT, date TEXT, summa INT)',
+					'CREATE TABLE IF NOT EXISTS income(id INTEGER PRIMARY KEY NOT NULL,comment TEXT, rubric TEXT, date TEXT, summa INT DEFAULT 0)',
 					[],
 					resolve,
 					(_, error) => reject(error)
@@ -16,7 +16,7 @@ export class DB {
 			}),
 			db.transaction(tx => {
 				tx.executeSql(
-					'CREATE TABLE IF NOT EXISTS consumption (id INTEGER PRIMARY KEY NOT NULL,comment TEXT, rubric TEXT, date TEXT, summa INT)',
+					'CREATE TABLE IF NOT EXISTS consumption (id INTEGER PRIMARY KEY NOT NULL,comment TEXT, rubric TEXT, date TEXT, summa INT DEFAULT 0)',
 					[],
 					resolve,
 					(_, error) => reject(error)
